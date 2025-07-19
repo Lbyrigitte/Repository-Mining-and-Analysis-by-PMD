@@ -1,0 +1,111 @@
+{
+  "commit": {
+    "hash": "50bcf77344fa8a97a33bb1ade9f67cfa7c7f87ed",
+    "short_hash": "50bcf773",
+    "author": {
+      "name": "Test User",
+      "email": "test@example.com"
+    },
+    "committer": {
+      "name": "Test User",
+      "email": "test@example.com"
+    },
+    "date": "2025-07-16T21:53:22+08:00",
+    "timestamp": 1752674002,
+    "message": "Fix some PMD violations in Main class",
+    "stats": {
+      "files_changed": 1,
+      "insertions": 7,
+      "deletions": 7
+    }
+  },
+  "java_files": {
+    "count": 3,
+    "total_lines": 82,
+    "files": [
+      {
+        "path": "src/main/java/com/example/DataProcessor.java",
+        "lines": 36
+      },
+      {
+        "path": "src/main/java/com/example/Utils.java",
+        "lines": 22
+      },
+      {
+        "path": "src/main/java/com/example/Main.java",
+        "lines": 24
+      }
+    ]
+  },
+  "pmd_analysis": {
+    "violation_count": 3,
+    "files_with_violations": 2,
+    "rules_violated": [
+      "SystemPrintln"
+    ],
+    "violations": [
+      {
+        "file": "/home/user/pmd_miner/local-repo/src/main/java/com/example/DataProcessor.java",
+        "line": 21,
+        "column": 9,
+        "end_line": 21,
+        "end_column": 15,
+        "rule": "SystemPrintln",
+        "ruleset": "Best Practices",
+        "priority": 2,
+        "message": "Usage of System.out/err"
+      },
+      {
+        "file": "/home/user/pmd_miner/local-repo/src/main/java/com/example/DataProcessor.java",
+        "line": 34,
+        "column": 9,
+        "end_line": 34,
+        "end_column": 15,
+        "rule": "SystemPrintln",
+        "ruleset": "Best Practices",
+        "priority": 2,
+        "message": "Usage of System.out/err"
+      },
+      {
+        "file": "/home/user/pmd_miner/local-repo/src/main/java/com/example/Utils.java",
+        "line": 20,
+        "column": 9,
+        "end_line": 20,
+        "end_column": 15,
+        "rule": "SystemPrintln",
+        "ruleset": "Best Practices",
+        "priority": 2,
+        "message": "Usage of System.out/err"
+      }
+    ]
+  },
+  "statistics": {
+    "violations_per_file": 1.0,
+    "violations_per_1000_lines": 36.58536585365854,
+    "files_with_violations_ratio": 0.6666666666666666,
+    "average_lines_per_file": 27.333333333333332,
+    "violation_by_priority": {
+      "2": 3
+    },
+    "rule_frequency": {
+      "SystemPrintln": 3
+    },
+    "file_violation_stats": {
+      "/home/user/pmd_miner/local-repo/src/main/java/com/example/DataProcessor.java": {
+        "violation_count": 2,
+        "rules": [
+          "SystemPrintln"
+        ],
+        "unique_rules": 1
+      },
+      "/home/user/pmd_miner/local-repo/src/main/java/com/example/Utils.java": {
+        "violation_count": 1,
+        "rules": [
+          "SystemPrintln"
+        ],
+        "unique_rules": 1
+      }
+    }
+  },
+  "processed_at": "2025-07-19T14:16:38.531380"
+}

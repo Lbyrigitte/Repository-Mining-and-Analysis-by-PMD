@@ -1,0 +1,43 @@
+#name: static-analysis-project
+
+services:
+  static-analyzer:
+    build: .
+    container_name: static-analyzer
+    volumes:
+      - ./output:/app/output
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    # 快速测试命令 - 分析前20个提交
+    command: [
+      "https://github.com/apache/commons-lang.git",
+      "--ruleset", "minimal-ruleset.xml",
+      "--pmd-path", "/app/pmd/pmd-bin-7.15.0",
+      "--output-dir", "/app/output",
+      "--max-commits", "20",
+      "--verbose"
+    ]
+
+  # 完整分析服务（可选）
+  static-analyzer-full:
+    build: .
+    container_name: static-analyzer-full
+    volumes:
+      - ./output-full:/app/output
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    # 增加内存限制
+    mem_limit: 4g
+    memswap_limit: 4g
+    # 完整分析命令 - 分析前100个提交
+    command: [
+      "https://github.com/apache/commons-lang.git",
+      "--ruleset", "ultra-minimal-ruleset.xml",
+      "--pmd-path", "/app/pmd/pmd-bin-7.15.0",
+      "--output-dir", "/app/output",
+      "--max-commits", "50",
+      "--verbose"
+    ]
+    profiles: ["full"]  # 需要使用 --profile full 来启动

@@ -1,0 +1,97 @@
+#name: static-analysis-local
+
+services:
+  # 本地仓库快速分析
+  local-quick:
+    build: .
+    container_name: static-analyzer-local-quick
+    volumes:
+      # 挂载本地Java项目目录 - 请修改为您的项目路径
+      - ./local-repo:/app/repo:ro  # :ro 表示只读挂载
+      # 输出目录
+      - ./output-local-quick:/app/output
+      # 数据目录（可选）
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    # 快速分析命令 - 分析前10个提交，使用最小规则集
+    command: [
+      "/app/repo",
+      "--ruleset", "minimal-ruleset.xml",
+      "--pmd-path", "/app/pmd/pmd-bin-7.15.0",
+      "--output-dir", "/app/output",
+      "--max-commits", "10",
+      "--verbose"
+    ]
+
+  # 本地仓库标准分析
+  local-standard:
+    build: .
+    container_name: static-analyzer-local-standard
+    volumes:
+      # 挂载本地Java项目目录 - 请修改为您的项目路径
+      - ./local-repo:/app/repo:ro
+      # 输出目录
+      - ./output-local-standard:/app/output
+      # 数据目录（可选）
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    # 标准分析命令 - 分析前50个提交，使用标准规则集
+    command: [
+      "/app/repo",
+      "--ruleset", "simple-ruleset.xml",
+      "--pmd-path", "/app/pmd/pmd-bin-7.15.0",
+      "--output-dir", "/app/output",
+      "--max-commits", "50",
+      "--verbose"
+    ]
+    profiles: ["standard"]  # 需要使用 --profile standard 来启动
+
+  # 本地仓库详细分析
+  local-detailed:
+    build: .
+    container_name: static-analyzer-local-detailed
+    volumes:
+      # 挂载本地Java项目目录 - 请修改为您的项目路径
+      - ./local-repo:/app/repo:ro
+      # 输出目录
+      - ./output-local-detailed:/app/output
+      # 数据目录（可选）
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    # 详细分析命令 - 分析前100个提交，使用完整规则集
+    command: [
+      "/app/repo",
+      "--ruleset", "example-ruleset.xml",
+      "--pmd-path", "/app/pmd/pmd-bin-7.15.0",
+      "--output-dir", "/app/output",
+      "--max-commits", "100",
+      "--verbose"
+    ]
+    profiles: ["detailed"]  # 需要使用 --profile detailed 来启动
+
+  # 自定义本地分析（模板）
+  local-custom:
+    build: .
+    container_name: static-analyzer-local-custom
+    volumes:
+      # 挂载本地Java项目目录 - 请修改为您的项目路径
+      - ./local-repo:/app/repo:ro
+      # 输出目录
+      - ./output-local-custom:/app/output
+      # 数据目录（可选）
+      - ./data:/app/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    # 自定义分析命令 - 请根据需要修改参数
+    command: [
+      "/app/repo",
+      "--ruleset", "minimal-ruleset.xml",  # 可选: minimal-ruleset.xml, simple-ruleset.xml, example-ruleset.xml
+      "--pmd-path", "/app/pmd/pmd-bin-7.15.0",
+      "--output-dir", "/app/output",
+      "--max-commits", "20",  # 修改为您需要的提交数
+      "--verbose"
+    ]
+    profiles: ["custom"]  # 需要使用 --profile custom 来启动

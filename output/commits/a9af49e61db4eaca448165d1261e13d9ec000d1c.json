@@ -1,0 +1,756 @@
+{
+  "commit": {
+    "hash": "a9af49e61db4eaca448165d1261e13d9ec000d1c",
+    "short_hash": "a9af49e6",
+    "author": {
+      "name": "Stephen Colebourne",
+      "email": "scolebourne@apache.org"
+    },
+    "committer": {
+      "name": "Stephen Colebourne",
+      "email": "scolebourne@apache.org"
+    },
+    "date": "2002-09-12T21:58:38+00:00",
+    "timestamp": 1031867918,
+    "message": "Moved to builder subpackage\n\n\ngit-svn-id: https://svn.apache.org/repos/asf/jakarta/commons/proper/lang/trunk@137015 13f79535-47bb-0310-9956-ffa450edef68",
+    "stats": {
+      "files_changed": 1,
+      "insertions": 0,
+      "deletions": 409
+    }
+  },
+  "java_files": {
+    "count": 46,
+    "total_lines": 12965,
+    "files": [
+      {
+        "path": "src/java/org/apache/commons/lang/CharRange.java",
+        "lines": 205
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/NumberUtils.java",
+        "lines": 536
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/ObjectUtils.java",
+        "lines": 104
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/CharSetUtils.java",
+        "lines": 229
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/CharSet.java",
+        "lines": 152
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/RandomStringUtils.java",
+        "lines": 247
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/SerializationException.java",
+        "lines": 109
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/SerializationUtils.java",
+        "lines": 194
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/SystemUtils.java",
+        "lines": 440
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/NumberRange.java",
+        "lines": 241
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/StringUtils.java",
+        "lines": 1552
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/exception/NestableException.java",
+        "lines": 263
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/exception/NestableError.java",
+        "lines": 200
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/exception/ExceptionUtils.java",
+        "lines": 418
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/exception/NestableRuntimeException.java",
+        "lines": 210
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/exception/Nestable.java",
+        "lines": 199
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/exception/NestableDelegate.java",
+        "lines": 343
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/enum/EnumUtils.java",
+        "lines": 142
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/enum/ValuedEnum.java",
+        "lines": 212
+      },
+      {
+        "path": "src/java/org/apache/commons/lang/enum/Enum.java",
+        "lines": 345
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/ObjectUtilsTest.java",
+        "lines": 126
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/StringUtilsEqualsIndexOfTest.java",
+        "lines": 136
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/NumberRangeTest.java",
+        "lines": 187
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/LangTestSuite.java",
+        "lines": 103
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/CharSetUtilsTest.java",
+        "lines": 140
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/NumberUtilsTest.java",
+        "lines": 308
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/StringUtilsIsTest.java",
+        "lines": 183
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/RandomStringUtilsTest.java",
+        "lines": 157
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/StringUtilsTest.java",
+        "lines": 331
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/SerializationUtilsTest.java",
+        "lines": 353
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/StringUtilsSubstringTest.java",
+        "lines": 212
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/HashCodeBuilderTest.java",
+        "lines": 262
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/StringUtilsTrimEmptyTest.java",
+        "lines": 203
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "lines": 1342
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/exception/NestableExceptionTestCase.java",
+        "lines": 300
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/exception/ExceptionTestSuite.java",
+        "lines": 95
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/exception/ExceptionUtilsTestCase.java",
+        "lines": 133
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/exception/NestableErrorTestCase.java",
+        "lines": 297
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "lines": 703
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/exception/NestableRuntimeExceptionTestCase.java",
+        "lines": 300
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/enum/EnumTest.java",
+        "lines": 146
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/enum/ValuedColorEnum.java",
+        "lines": 94
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/enum/ValuedEnumTest.java",
+        "lines": 159
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/enum/ColorEnum.java",
+        "lines": 90
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/enum/EnumUtilsTest.java",
+        "lines": 171
+      },
+      {
+        "path": "src/test/org/apache/commons/lang/enum/EnumTestSuite.java",
+        "lines": 93
+      }
+    ]
+  },
+  "pmd_analysis": {
+    "violation_count": 41,
+    "files_with_violations": 9,
+    "rules_violated": [
+      "UnusedLocalVariable",
+      "SimplifyBooleanReturns",
+      "EmptyCatchBlock"
+    ],
+    "violations": [
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java",
+        "line": 214,
+        "column": 27,
+        "end_line": 216,
+        "end_column": 26,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java",
+        "line": 231,
+        "column": 23,
+        "end_line": 232,
+        "end_column": 22,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java",
+        "line": 241,
+        "column": 23,
+        "end_line": 242,
+        "end_column": 22,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java",
+        "line": 245,
+        "column": 23,
+        "end_line": 246,
+        "end_column": 22,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java",
+        "line": 264,
+        "column": 19,
+        "end_line": 265,
+        "end_column": 18,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java",
+        "line": 268,
+        "column": 19,
+        "end_line": 269,
+        "end_column": 18,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java",
+        "line": 280,
+        "column": 19,
+        "end_line": 281,
+        "end_column": 18,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java",
+        "line": 287,
+        "column": 19,
+        "end_line": 288,
+        "end_column": 18,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/ObjectUtils.java",
+        "line": 96,
+        "column": 16,
+        "end_line": 101,
+        "end_column": 10,
+        "rule": "SimplifyBooleanReturns",
+        "ruleset": "Design",
+        "priority": 3,
+        "message": "This if statement can be replaced by `return !{condition} && {elseBranch};`"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/SerializationUtils.java",
+        "line": 131,
+        "column": 15,
+        "end_line": 133,
+        "end_column": 14,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/SerializationUtils.java",
+        "line": 176,
+        "column": 15,
+        "end_line": 178,
+        "end_column": 14,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/StringUtils.java",
+        "line": 1071,
+        "column": 18,
+        "end_line": 1071,
+        "end_column": 21,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'chr'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/enum/Enum.java",
+        "line": 293,
+        "column": 19,
+        "end_line": 295,
+        "end_column": 18,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/enum/Enum.java",
+        "line": 295,
+        "column": 19,
+        "end_line": 297,
+        "end_column": 18,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/enum/Enum.java",
+        "line": 297,
+        "column": 19,
+        "end_line": 299,
+        "end_column": 18,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/NumberUtilsTest.java",
+        "line": 297,
+        "column": 13,
+        "end_line": 299,
+        "end_column": 14,
+        "rule": "SimplifyBooleanReturns",
+        "ruleset": "Design",
+        "priority": 3,
+        "message": "This if statement can be replaced by `return !{condition};`"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/SerializationUtilsTest.java",
+        "line": 158,
+        "column": 31,
+        "end_line": 158,
+        "end_column": 41,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'streamTest'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/SerializationUtilsTest.java",
+        "line": 168,
+        "column": 31,
+        "end_line": 168,
+        "end_column": 41,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'streamTest'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 205,
+        "column": 20,
+        "end_line": 205,
+        "end_column": 23,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'msg'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 208,
+        "column": 9,
+        "end_line": 210,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 213,
+        "column": 20,
+        "end_line": 213,
+        "end_column": 23,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'msg'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 216,
+        "column": 9,
+        "end_line": 218,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 301,
+        "column": 9,
+        "end_line": 303,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 309,
+        "column": 9,
+        "end_line": 311,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 462,
+        "column": 17,
+        "end_line": 462,
+        "end_column": 22,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'index'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 465,
+        "column": 9,
+        "end_line": 467,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 470,
+        "column": 17,
+        "end_line": 470,
+        "end_column": 22,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'index'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 473,
+        "column": 9,
+        "end_line": 475,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java",
+        "line": 531,
+        "column": 21,
+        "end_line": 531,
+        "end_column": 24,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'pw1'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 118,
+        "column": 30,
+        "end_line": 118,
+        "end_column": 47,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'nonThrowableCause'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 132,
+        "column": 30,
+        "end_line": 132,
+        "end_column": 33,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'nd1'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 259,
+        "column": 20,
+        "end_line": 259,
+        "end_column": 23,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'msg'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 262,
+        "column": 9,
+        "end_line": 264,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 267,
+        "column": 20,
+        "end_line": 267,
+        "end_column": 23,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'msg'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 270,
+        "column": 9,
+        "end_line": 272,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 335,
+        "column": 9,
+        "end_line": 337,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 343,
+        "column": 9,
+        "end_line": 345,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 441,
+        "column": 17,
+        "end_line": 441,
+        "end_column": 22,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'index'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 444,
+        "column": 9,
+        "end_line": 446,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 449,
+        "column": 17,
+        "end_line": 449,
+        "end_column": 22,
+        "rule": "UnusedLocalVariable",
+        "ruleset": "Best Practices",
+        "priority": 3,
+        "message": "Avoid unused local variables such as 'index'."
+      },
+      {
+        "file": "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java",
+        "line": 452,
+        "column": 9,
+        "end_line": 454,
+        "end_column": 10,
+        "rule": "EmptyCatchBlock",
+        "ruleset": "Error Prone",
+        "priority": 3,
+        "message": "Avoid empty catch blocks"
+      }
+    ]
+  },
+  "statistics": {
+    "violations_per_file": 0.8913043478260869,
+    "violations_per_1000_lines": 3.1623602005399154,
+    "files_with_violations_ratio": 0.1956521739130435,
+    "average_lines_per_file": 281.8478260869565,
+    "violation_by_priority": {
+      "3": 41
+    },
+    "rule_frequency": {
+      "UnusedLocalVariable": 14,
+      "SimplifyBooleanReturns": 2,
+      "EmptyCatchBlock": 25
+    },
+    "file_violation_stats": {
+      "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/NumberUtils.java": {
+        "violation_count": 8,
+        "rules": [
+          "EmptyCatchBlock"
+        ],
+        "unique_rules": 1
+      },
+      "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/ObjectUtils.java": {
+        "violation_count": 1,
+        "rules": [
+          "SimplifyBooleanReturns"
+        ],
+        "unique_rules": 1
+      },
+      "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/SerializationUtils.java": {
+        "violation_count": 2,
+        "rules": [
+          "EmptyCatchBlock"
+        ],
+        "unique_rules": 1
+      },
+      "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/StringUtils.java": {
+        "violation_count": 1,
+        "rules": [
+          "UnusedLocalVariable"
+        ],
+        "unique_rules": 1
+      },
+      "/tmp/tmpjowod5ms/repo/src/java/org/apache/commons/lang/enum/Enum.java": {
+        "violation_count": 3,
+        "rules": [
+          "EmptyCatchBlock"
+        ],
+        "unique_rules": 1
+      },
+      "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/NumberUtilsTest.java": {
+        "violation_count": 1,
+        "rules": [
+          "SimplifyBooleanReturns"
+        ],
+        "unique_rules": 1
+      },
+      "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/SerializationUtilsTest.java": {
+        "violation_count": 2,
+        "rules": [
+          "UnusedLocalVariable"
+        ],
+        "unique_rules": 1
+      },
+      "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/AbstractNestableTestCase.java": {
+        "violation_count": 11,
+        "rules": [
+          "EmptyCatchBlock",
+          "UnusedLocalVariable"
+        ],
+        "unique_rules": 2
+      },
+      "/tmp/tmpjowod5ms/repo/src/test/org/apache/commons/lang/exception/NestableDelegateTestCase.java": {
+        "violation_count": 12,
+        "rules": [
+          "EmptyCatchBlock",
+          "UnusedLocalVariable"
+        ],
+        "unique_rules": 2
+      }
+    }
+  },
+  "processed_at": "2025-07-19T13:26:23.537910"
+}

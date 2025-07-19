@@ -1,0 +1,58 @@
+{
+  "repository": {
+    "location": "https://github.com/apache/commons-lang.git",
+    "analyzed_at": "2025-07-19T14:15:28.126921",
+    "commit_count": 10
+  },
+  "java_files": {
+    "average_count": 27,
+    "median_count": 30.0,
+    "min_count": 0,
+    "max_count": 30,
+    "total_commits": 10,
+    "average_total_lines": 8604.6,
+    "median_total_lines": 9552.0
+  },
+  "warnings": {
+    "average_count": 18.7,
+    "median_count": 21.0,
+    "min_count": 0,
+    "max_count": 21,
+    "total_violations": 187,
+    "average_files_with_violations": 9,
+    "priority_distribution": {
+      "3": 187
+    }
+  },
+  "temporal_trends": {
+    "java_files_trend": 1.2727272727272727,
+    "warnings_trend": 0.9757575757575757,
+    "first_commit_date": "2002-07-19T11:35:56",
+    "last_commit_date": "2002-07-26T06:18:30",
+    "analysis_period_days": 6.779560185185185
+  },
+  "rule_statistics": {
+    "EmptyCatchBlock": {
+      "total_violations": 99,
+      "commits_affected": 9,
+      "average_per_commit": 9.9
+    },
+    "SimplifyBooleanReturns": {
+      "total_violations": 18,
+      "commits_affected": 9,
+      "average_per_commit": 1.8
+    },
+    "UnusedLocalVariable": {
+      "total_violations": 70,
+      "commits_affected": 9,
+      "average_per_commit": 7.0
+    }
+  },
+  "quality_metrics": {
+    "average_violation_density": 2.1732272138878006,
+    "median_violation_density": 2.19435736677116,
+    "average_clean_file_ratio": 0.6666666666666666,
+    "median_clean_file_ratio": 0.6666666666666666
+  },
+  "formatted_summary": "\"location\": \"https://github.com/apache/commons-lang.git\"\n\"commit_count\": 10\n\"average_java_files\": 27.0\n\"average_warnings\": 18.7\n\"warning_statistics\": {'EmptyCatchBlock': 99, 'SimplifyBooleanReturns': 18, 'UnusedLocalVariable': 70}"
+}

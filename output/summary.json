@@ -1,0 +1,64 @@
+{
+  "repository": {
+    "location": "https://github.com/apache/commons-lang.git",
+    "analyzed_at": "2025-07-19T13:27:51.402452",
+    "commit_count": 100
+  },
+  "java_files": {
+    "average_count": 41.97,
+    "median_count": 44.5,
+    "min_count": 0,
+    "max_count": 55,
+    "total_commits": 100,
+    "average_total_lines": 12543.76,
+    "median_total_lines": 12732.5
+  },
+  "warnings": {
+    "average_count": 46.5,
+    "median_count": 52.0,
+    "min_count": 0,
+    "max_count": 63,
+    "total_violations": 4650,
+    "average_files_with_violations": 10.34,
+    "priority_distribution": {
+      "3": 4498,
+      "2": 152
+    }
+  },
+  "temporal_trends": {
+    "java_files_trend": 0.25200720072007204,
+    "warnings_trend": 0.18197419741974197,
+    "first_commit_date": "2002-07-19T03:35:56",
+    "last_commit_date": "2002-09-17T22:07:20",
+    "analysis_period_days": 60.77180555555555
+  },
+  "rule_statistics": {
+    "EmptyCatchBlock": {
+      "total_violations": 2585,
+      "commits_affected": 99,
+      "average_per_commit": 25.85
+    },
+    "SimplifyBooleanReturns": {
+      "total_violations": 236,
+      "commits_affected": 99,
+      "average_per_commit": 2.36
+    },
+    "UnusedLocalVariable": {
+      "total_violations": 1677,
+      "commits_affected": 99,
+      "average_per_commit": 16.77
+    },
+    "SystemPrintln": {
+      "total_violations": 152,
+      "commits_affected": 38,
+      "average_per_commit": 1.52
+    }
+  },
+  "quality_metrics": {
+    "average_violation_density": 3.7097747851842744,
+    "median_violation_density": 4.479921805001221,
+    "average_clean_file_ratio": 0.7453578144158415,
+    "median_clean_file_ratio": 0.7555555555555555
+  },
+  "formatted_summary": "\"location\": \"https://github.com/apache/commons-lang.git\"\n\"commit_count\": 100\n\"average_java_files\": 42.0\n\"average_warnings\": 46.5\n\"warning_statistics\": {'EmptyCatchBlock': 2585, 'SimplifyBooleanReturns': 236, 'UnusedLocalVariable': 1677, 'SystemPrintln': 152}"
+}
