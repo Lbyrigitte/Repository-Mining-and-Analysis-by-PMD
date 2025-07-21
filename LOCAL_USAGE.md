@@ -17,9 +17,10 @@
  **- Check Git Version**
  `git --version`
 
- **- Use virtual environments** to avoid new security mechanisms introduced in Ubuntu 23+ / Debian Bookworm+
- 
- **- Execute in  pmd_miner directory **
+ **- Use virtual environments** to avoid new security mechanisms introduced in Ubuntu 23+ / Debian Bookworm+ ** 
+
+ **- Execute in  pmd_miner directoryn**
+
 ```
     cd /home/user/pmd_miner
     sudo apt install python3-venv
