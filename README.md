@@ -237,7 +237,7 @@ The *requirements.txt* :
 - PMD analysis results (number of violations, detailed violation information)
 - Calculation statistics (violation density, quality ratio, etc.)
 
- ****2. Summary data (`output/summary.json`)**
+ **2. Summary data (`output/summary.json`)**
 - Basic information of the warehouse
 - Number and average statistics of Java files
 - Average statistics of warnings
