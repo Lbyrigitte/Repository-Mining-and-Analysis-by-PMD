@@ -249,7 +249,7 @@ The *requirements.txt* :
 | Rule set | Number of rules | Analysis speed | Applicable scenarios |
 |--------|----------|----------|----------|
 |`ultra-minimal-ruleset.xml`|5|Fastest|Complex item,Analyze the problem,Performance optimization|
-| `minimal-ruleset.xml` | 8 | Fastest | Quick test |
+| `minimal-ruleset.xml` | 8 | Fast | Quick test |
 | `simple-ruleset.xml` | ~100 | Medium | Daily analysis |
 | `example-ruleset.xml` | ~200 | Slow | Detailed analysis
 
