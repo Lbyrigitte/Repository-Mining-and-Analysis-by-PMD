@@ -53,7 +53,7 @@ docker run --rm -v "$(pwd)/output:/app/output" static-analyzer \
   --verbose
 ```
 
-- **Parameters can be changed --max-commits  --ruleset  **
+- **Parameters can be changed --max-commits  --ruleset** 
 
  **Analyze local repositories：**
 ```
@@ -204,14 +204,14 @@ output/
 
 ## Performance optimization
 ### Allocate more resources
+
 ```
-    docker run --memory=4g --cpus=2 --rm \  
-    -v "$(pwd)/output:/app/output" static-analyzer \  
-    https://github.com/apache/commons-lang.git \  
-    --ruleset minimal-ruleset.xml \  
-    --pmd-path /app/pmd/pmd-bin-7.15.0 \  
-    --max-commits 10 \  
-    --verbose
+docker run --memory=4g --cpus=4 --rm -v "$(pwd)/output:/app/output" static-analyzer \
+  https://github.com/apache/commons-lang.git \
+  --ruleset ultra-minimal-ruleset.xml \
+  --pmd-path /app/pmd/pmd-bin-7.15.0 \
+  --max-commits 10 \
+  --verbose
 ```
 ### Use minimal ruleset
 
