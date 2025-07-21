@@ -181,7 +181,7 @@ The *requirements.txt* :
 
  **6. Build the docker image**
 
-   `docker build --progress=plain -t static-analyzer .`
+   `docker build --progress=plain -t static-analyzer .`    
 **7. Test docker container**
 
 ``` bash 
