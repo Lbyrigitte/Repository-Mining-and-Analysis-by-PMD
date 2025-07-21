@@ -11,32 +11,39 @@ This's a program running on [Docker](https://www.docker.com/), which performs st
 
 - Docker containerization support
 
--   Traverse Git history commit-by-commit
+- Traverse Git history commit-by-commit
     
--   Run PMD static analysis on each revision
+- Run PMD static analysis on each revision
     
--   Output per-commit results as JSON files
+- Output per-commit results as JSON files
     
--   Generate a summary report showing commit count, average number of Java files, average warnings, and warning types
+- Generate a summary report showing commit count, average number of Java files, average warnings, and warning types
  
--  Configurable input/output paths and ruleset
+- Configurable input/output paths and ruleset
 
 
 
 ## Project Structure
- (project-root)**pmd_miner**/
-├── main.py # Main program entry
-├── git_analyzer.py # Git repository analysis module
-├── pmd_runner.py # PMD execution module
-├── result_processor.py # Result processing module
-├── summary_generator.py # Summary generation module
-├── requirements.txt # Python dependencies
-├── *.xml # PMD rule set file
-├── Dockerfile # Docker image definition
-├── docker-compose.yml # Remote repository analysis configuration
-├── LOCAL_USAGE.md # Local operation guide
-├── README.md         # This file
-└── DOCKER_USAGE.md # Docker operation guide
+ (project-root)**pmd_miner**/    
+├──output    
+│     ├──commits #Detailed json file    
+│     ├──logs    
+│     └──summary.json #summary file    
+├──pmd    
+│     └──pmd-dist-7.15.0-bin#local pmd installatin    
+├──local-repo #local test git repository    
+├── main.py # Main program entry    
+├── git_analyzer.py # Git repository analysis module    
+├── pmd_runner.py # PMD execution module    
+├── result_processor.py # Result processing module    
+├── summary_generator.py # Summary generation module    
+├── requirements.txt # Python dependencies    
+├── *.xml # PMD rule set file    
+├── Dockerfile # Docker image definition    
+├── docker-compose.yml # Remote repository analysis configuration    
+├── LOCAL_USAGE.md # Local operation guide    
+├── README.md         # This file    
+└── DOCKER_USAGE.md # Docker operation guide    
  
 ## Usage Instructions or Examples
 
@@ -57,56 +64,62 @@ Will be detailed in the section below.
 
  **1. **To install Docker, follow the official documentation:**
  (**Add Docker's official GPG key**:)**
-
-     bash sudo apt-get update
+```bash
+        sudo apt-get update
         sudo apt-get install ca-certificates curl
         sudo install -m 0755 -d /etc/apt/keyrings
         sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
         sudo chmod a+r /etc/apt/keyrings/docker.asc
-
+```
 ( **Add the repository to Apt sources**:)
-
+```
     echo \
     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
     $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
     sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo apt-get update
-
+```
 (**To install the latest version, run**:)
-
-     bash sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
+``` bash
+     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
 (**Check docker installation**)
-
-    bash sudo docker version
-         sudo docker run hello-world
-         sudo docker images
-         sudo docker ps -a
-         sudo usermod -aG docker ${USER}
-         docker run  --rm -d -p 8080:80 --name my-nginx nginx
-
+``` bash
+    sudo docker version
+    sudo docker run hello-world
+    sudo docker images
+    sudo docker ps -a
+    sudo usermod -aG docker ${USER}
+    docker run  --rm -d -p 8080:80 --name my-nginx nginx
+```
 **2. Install dependencies including git, java, python**
 
-    bash sudo apt-get install git
-         sudo apt install -y openjdk-11-jdk
-         sudo apt install -y python3 python3-pip
-         pip install gitpython
- 
+``` bash 
+    sudo apt-get install git
+    sudo apt install -y openjdk-11-jdk
+    sudo apt install -y python3 python3-pip
+    pip install gitpython
+```
+
  **3. Environment Preparation and Check**
 
-    bash sudo mkdir -p /home/user/pmd_miner 
-                cd /home/user/pmd_miner 
-                ls -ld /home/user/pmd_miner 
-               echo $USER
-                 sudo chown -R $USER:$USER       
+``` bash 
+    sudo mkdir -p /home/user/pmd_miner 
+    cd /home/user/pmd_miner 
+    ls -ld /home/user/pmd_miner 
+    echo $USER
+    sudo chown -R $USER:$USER
+```
 
 **4. Modify *Dockerfile* (including PMD installatin inside)**
 
-    bash cd /home/user/pmd_miner 
-                 nano Dockerfile
-    
-The *Dockerfile* :
+```bash 
+    cd /home/user/pmd_miner 
+    nano Dockerfile
+```
 
+The *Dockerfile* :
+``` 
     # Use Python 3.9 slim image as base  
     FROM python:3.9-slim  
       
@@ -154,25 +167,29 @@ The *Dockerfile* :
     ENTRYPOINT ["python", "main.py"]  
     CMD ["--help"]
     
+```
 
 **5. Build *requirements.txt*  in the same directory as Dockerfile**
 The *requirements.txt* :
-
+``` 
     GitPython==3.1.40  
     requests==2.31.0  
     click==8.1.7  
     tqdm==4.66.1  
     python-dateutil==2.8.2
+```
 
  **6. Build the docker image**
 
-    bash docker build --progress=plain -t static-analyzer .
+   `docker build --progress=plain -t static-analyzer .`
 **7. Test docker container**
 
-    bash docker run -it pmd_miner /bin/bash 
-         java -version
-         python3 --version
-         pmd -version
+``` bash 
+    docker run -it pmd_miner /bin/bash 
+    java -version
+    python3 --version
+    pmd -version
+```
 
 ### Execution
 
@@ -184,8 +201,7 @@ The *requirements.txt* :
 
  
 **2. Run locally (fast, but supposed to follow [DOCKER_USAGE.md](DOCKER_USAGE.md))**
-
-    bash
+``` 
     # 1. Install dependencies
     pip install -r requirements.txt
     
@@ -194,9 +210,10 @@ The *requirements.txt* :
     --ruleset minimal-ruleset.xml \
     --max-commits 10 \
     --verbose
+```
 
  **3. Docker run (recommended, supposed to follow [DOCKER_USAGE.md](DOCKER_USAGE.md))**
-
+``` 
     # 1. Build image
     docker build –progress=plain -t static-analyzer .
     
@@ -208,8 +225,9 @@ The *requirements.txt* :
     --pmd-path /app/pmd/pmd-bin-7.15.0 \  
     --max-commits 10 \  
     --verbose
+```
 
-### Output
+## Output
 
  **1. Output Format**
 
@@ -230,6 +248,7 @@ The *requirements.txt* :
 
 | Rule set | Number of rules | Analysis speed | Applicable scenarios |
 |--------|----------|----------|----------|
+|`ultra-minimal-ruleset.xml`|5|Fastest|Complex item,Analyze the problem,Performance optimization|
 | `minimal-ruleset.xml` | 8 | Fastest | Quick test |
 | `simple-ruleset.xml` | ~100 | Medium | Daily analysis |
 | `example-ruleset.xml` | ~200 | Slow | Detailed analysis
@@ -241,16 +260,27 @@ The *requirements.txt* :
 - **[PMD_PATH_CONFIG.md](PMD_PATH_CONFIG.md)** - PMD path configuration instructions
 
 
+## Performance
+**1.Target Performance**: ≤1 second/commit
+**2.Local run**: about 10-15 seconds/commit
+**3.Docker run**: about 3-6 seconds/commit
+**4.After optimization**: ≤1 second/commit (using existing PMD + simplified ruleset)
+- **Ultra-Simplified Ruleset**: **< 1 sec/submit**  (ultra-minimal-ruleset.xml)
+- **Minimal Ruleset**: ~2-5 sec/submit (minimal-ruleset.xml)
+- **Standard Ruleset**: ~5-15 sec/submit (simple-ruleset.xml)
+- **Full Ruleset**: ~10-30 sec/submit (example-ruleset.xml)
 
-**5. Performance**
 
-- **Local run**: about 10-15 seconds/commit
-- **Docker run**: about 3-6 seconds/commit
-- **After optimization**: about 2-5 seconds/commit (using existing PMD + simplified ruleset)
+## Contributions
 
+Welcome to submit issues and pull requests to improve this project.
 
 
 
-###
+## License
+
+This project uses the MIT license.
+
+
 
 

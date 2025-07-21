@@ -18,57 +18,59 @@
  `git --version`
 
  **- Use virtual environments** to avoid new security mechanisms introduced in Ubuntu 23+ / Debian Bookworm+
-
+ 
+ **- Execute in  pmd_miner directory **
+```
+    cd /home/user/pmd_miner
     sudo apt install python3-venv
     python3 -m venv venv
 
     source venv/bin/activate
-
+```
  **- Install Dependencies**
 
-    pip install -r requirements.txt
+    `pip install -r requirements.txt`
 
  **- View ，Modify and Check permissions**
-
+```
      ls -l /home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0/bin/pmd
      
      chmod +x /home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0/bin/pmd
      
      /home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0/bin/pmd --version
 
-
+```
 ## Run
 
  ###  Analyze Remote  Repository
 
  **1. Fast test for 10 commits**
-
-    python main.py https://github.com/apache/commons-lang.git --ruleset simple-ruleset.xml --pmd-path "/home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0" --max-commits 10 
-
+    `python main.py https://github.com/apache/commons-lang.git --ruleset simple-ruleset.xml --pmd-path "/home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0" --max-commits 10 `
+ 
  **2.Standard analyze for 100 commits**
 
-     python main.py https://github.com/apache/commons-lang.git --ruleset simple-ruleset.xml --pmd-path "/home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0" --max-commits 100 
+     `python main.py https://github.com/apache/commons-lang.git --ruleset simple-ruleset.xml --pmd-path "/home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0" --max-commits 100 `
 
 **3.Formal analysis**
 Delete the"--max-commits":
 
-    python main.py https://github.com/apache/commons-lang.git --ruleset simple-ruleset.xml --pmd-path "/home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0" 
+    `python main.py https://github.com/apache/commons-lang.git --ruleset simple-ruleset.xml --pmd-path "/home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0" `
 
 
 
  ###  Analyze Local  Repository
 
-    python main.py /home/user/pmd_miner/local-repo --ruleset simple-ruleset.xml --pmd-path "/home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0"
+    `python main.py /home/user/pmd_miner/local-repo --ruleset simple-ruleset.xml --pmd-path "/home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0"`
 
  **- Use an existing PMD installation** (recommended, improves performance)
 
-    python main.py /path/to/repo --ruleset simple-ruleset.xml --pmd-path "  /home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0"
+    `python main.py /path/to/repo --ruleset simple-ruleset.xml --pmd-path "  /home/user/pmd_miner/pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0"`
 
  ###  View the results
-
+```
     ls ./analysis-results/
     cat ./analysis-results/summary.json
-
+```
 ## Common parameters
 | Parameters |Description   |Example  |
 |--|--|--|
@@ -81,19 +83,19 @@ Delete the"--max-commits":
 
 | Rule set | Number of rules | Analysis speed | Applicable scenarios |
 |--------|----------|----------|----------|
-|`ultra-minimal-ruleset.xml`|5|Fastest|Performance optimization|
+|`ultra-minimal-ruleset.xml`|5|Fastest|Complex item,Analyze the problem,Performance optimization|
 | `minimal-ruleset.xml` | 8 | Fast | Quick test |
 | `simple-ruleset.xml` | ~100 | Medium | Daily analysis |
 | `example-ruleset.xml` | ~200 | Slow | Detailed analysis
 
 ## Output description
 ### Structure
-output/
-├── commits/ # Detailed analysis of each commit
-│         ├── abc123.json # Commit hash.json
-│         └── def456.json
-├── summary.json # Summary statistics
-└── logs/ # Log files
+output/    
+├── commits/ # Detailed analysis of each commit    
+│         ├── abc123.json # Commit hash.json    
+│         └── def456.json    
+├── summary.json # Summary statistics    
+└── logs/ # Log files    
 
 ### Each submitted JSON file contains:
 
@@ -138,14 +140,18 @@ Error: Permission denied
 
 Solution: Make sure the output directory has write permission. For example:
 
-    sudo chmod u+rw /home/user/pmd_miner/output/summary.json
+   ` sudo chmod u+rw /home/user/pmd_miner/output/summary.json`
 
 ## Debug
 Use the `--verbose` parameter to get detailed information:
 
-    python main.py repo --ruleset simple-ruleset.xml --verbose
+   `python main.py repo --ruleset simple-ruleset.xml --verbose`
 
 ## Performance Reference
 - **Target Performance**: ≤1 second/submit
-- **Actual Performance**: About 10-15 seconds/submit (depending on project size and rule set)
-- **Optimized**: About 2-5 seconds/submit (using existing PMD + simplified rule set)
+- **After optimization**: ≤1 second/submit (using existing PMD + simplified ruleset)
+- **Ultra-Simplified Ruleset**: **< 1 sec/submit**  (ultra-minimal-ruleset.xml)
+- **Minimal Ruleset**: ~2-5 sec/submit (minimal-ruleset.xml)
+- **Standard Ruleset**: ~5-15 sec/submit (simple-ruleset.xml)
+- **Full Ruleset**: ~10-30 sec/submit (example-ruleset.xml)
+

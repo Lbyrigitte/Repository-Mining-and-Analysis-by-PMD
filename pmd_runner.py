@@ -190,7 +190,7 @@ class PMDRunner:
                 "-f", "xml",
                 "-r", output_file,
                 "--no-cache",
-                "--fail-on-violation", "false"  # 不因违规而失败，只因真正的错误失败
+                "--fail-on-violation", "false"  # Don't fail due to violations, only fail due to real mistakes
             ]
             
             self._log(f"Running PMD: {' '.join(cmd)}")

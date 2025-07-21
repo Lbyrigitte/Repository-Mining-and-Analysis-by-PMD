@@ -9,7 +9,8 @@ services:
       - ./data:/app/data
     environment:
       - PYTHONUNBUFFERED=1
-    # 快速测试命令 - 分析前20个提交
+    # Quick test command - analyze the first 20 commits
+
     command: [
       "https://github.com/apache/commons-lang.git",
       "--ruleset", "minimal-ruleset.xml",
@@ -19,7 +20,9 @@ services:
       "--verbose"
     ]
 
-  # 完整分析服务（可选）
+  # Full analytical service (optional)
+
+
   static-analyzer-full:
     build: .
     container_name: static-analyzer-full
@@ -28,16 +31,20 @@ services:
       - ./data:/app/data
     environment:
       - PYTHONUNBUFFERED=1
-    # 增加内存限制
+    # Increase memory limit
+
     mem_limit: 4g
     memswap_limit: 4g
-    # 完整分析命令 - 分析前100个提交
+    # Full analysis command - analyze the first 100 commits
+
     command: [
       "https://github.com/apache/commons-lang.git",
       "--ruleset", "ultra-minimal-ruleset.xml",
       "--pmd-path", "/app/pmd/pmd-bin-7.15.0",
       "--output-dir", "/app/output",
-      "--max-commits", "50",
+      "--max-commits", "100",
       "--verbose"
     ]
-    profiles: ["full"]  # 需要使用 --profile full 来启动
+    profiles: ["full"]  # Need to be started with --profile full
+
+
