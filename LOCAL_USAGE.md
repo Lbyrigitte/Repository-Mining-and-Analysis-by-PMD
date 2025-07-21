@@ -121,7 +121,8 @@ summary.json contains:
 
 Error: Java is not available or not in PATH
 
-Solution: Install Java 11+ and make sure it is in PATH
+Solution: Install Java 11+ and make sure it is in PATH    
+
 2. **PMD download failed**
 
 Error: Failed to download PMD
