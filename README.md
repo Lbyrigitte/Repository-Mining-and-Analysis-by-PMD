@@ -261,14 +261,14 @@ The *requirements.txt* :
 
 
 ## Performance
-**1.Target Performance**: ≤1 second/commit
-**2.Local run**: about 10-15 seconds/commit
-**3.Docker run**: about 3-6 seconds/commit
-**4.After optimization**: ≤1 second/commit (using existing PMD + simplified ruleset)
-- **Ultra-Simplified Ruleset**: **< 1 sec/submit**  (ultra-minimal-ruleset.xml)
-- **Minimal Ruleset**: ~2-5 sec/submit (minimal-ruleset.xml)
-- **Standard Ruleset**: ~5-15 sec/submit (simple-ruleset.xml)
-- **Full Ruleset**: ~10-30 sec/submit (example-ruleset.xml)
+**1.Target Performance**: ≤1 second/commit    
+**2.Local run**: about 10-15 seconds/commit    
+**3.Docker run**: about 3-6 seconds/commit    
+**4.After optimization**: ≤1 second/commit (using existing PMD + simplified ruleset)    
+- **Ultra-Simplified Ruleset**: **< 1 sec/submit**  (ultra-minimal-ruleset.xml)    
+- **Minimal Ruleset**: ~2-5 sec/submit (minimal-ruleset.xml)    
+- **Standard Ruleset**: ~5-15 sec/submit (simple-ruleset.xml)    
+- **Full Ruleset**: ~10-30 sec/submit (example-ruleset.xml)    
 
 
 ## Contributions
