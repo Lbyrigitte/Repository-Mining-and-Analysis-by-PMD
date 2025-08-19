@@ -17,26 +17,26 @@ RUN apt-get update && apt-get install -y \
 ENV JAVA_HOME=/usr/lib/jvm/default-java
 ENV PATH=$PATH:$JAVA_HOME/bin
 
-# Copy local PMD installation
-COPY pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0 /app/pmd/pmd-bin-7.15.0
-
-# Set PMD permissions and path
-RUN chmod +x /app/pmd/pmd-bin-7.15.0/bin/pmd && \
-    chmod +x /app/pmd/pmd-bin-7.15.0/bin/pmd.bat
+# Download and install PMD including rulesets
+ENV PMD_VERSION=7.15.0
+RUN curl -L -o pmd.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-dist-${PMD_VERSION}-bin.zip \
+    && unzip pmd.zip -d /opt \
+    && rm pmd.zip
 
 # Set PMD path
-ENV PMD_HOME=/app/pmd/pmd-bin-7.15.0
-ENV PATH=$PATH:$PMD_HOME/bin
+ENV PMD_HOME=/opt/pmd-bin-${PMD_VERSION}
+ENV PATH="$PMD_HOME/bin:$PATH"
 
-# Copy requirements file
-COPY requirements.txt .
+# Clone my github 
+RUN git clone https://github.com/Lbyrigitte/Repository-Mining-and-Analysis-by-PMD.git /app
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy application code
-COPY *.py ./
-COPY *.xml ./
+RUN pip install --no-cache-dir \
+    GitPython==3.1.40 \
+    requests==2.31.0 \
+    click==8.1.7 \
+    tqdm==4.66.1 \
+    python-dateutil==2.8.2
 
 # Create output directory
 RUN mkdir -p /app/output
