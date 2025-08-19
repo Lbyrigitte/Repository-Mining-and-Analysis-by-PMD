@@ -42,39 +42,29 @@ class SummaryGenerator:
         if not results:
             return self._empty_summary(repository_path)
         
-        # Basic repository information
-        summary = {
-            'repository': {
-                'location': repository_path,
-                'analyzed_at': datetime.now().isoformat(),
-                'commit_count': len(results)
-            }
-        }
-        
-        # Calculate Java file statistics
+        # Calculate statistics
         java_stats = self._calculate_java_statistics(results)
-        summary['java_files'] = java_stats
-        
-        # Calculate PMD warning statistics
         warning_stats = self._calculate_warning_statistics(results)
-        summary['warnings'] = warning_stats
-        
-        # Calculate temporal trends
-        temporal_stats = self._calculate_temporal_trends(results)
-        summary['temporal_trends'] = temporal_stats
-        
-        # Calculate rule-specific statistics
         rule_stats = self._calculate_rule_statistics(results)
-        summary['rule_statistics'] = rule_stats
-        
-        # Calculate quality metrics
-        quality_metrics = self._calculate_quality_metrics(results)
-        summary['quality_metrics'] = quality_metrics
-        
-        # Generate the required format from R8
-        summary['formatted_summary'] = self._generate_formatted_summary(summary)
-        
+
+        # Create flat summary structure as requested
+        summary = {
+            "location": repository_path,
+            "stat_of_repository": {
+                "number_of_commits": len(results),
+                "avg_of_num_java_files": round(java_stats.get('average_count', 0), 1),
+                "avg_of_num_warnings": round(warning_stats.get('average_count', 0), 1)
+            },
+            "stat_of_warnings": {}
+        }
+
+        # Add rule statistics in flat format
+        for rule_name, rule_data in rule_stats.items():
+            if isinstance(rule_data, dict) and 'total_violations' in rule_data:
+                summary["stat_of_warnings"][rule_name] = rule_data['total_violations']
+
         return summary
+
     
     def _empty_summary(self, repository_path: str) -> Dict[str, Any]:
         """Generate empty summary for repositories with no results."""
