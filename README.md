@@ -1,286 +1,358 @@
-﻿
 # Repository Mining and Analysis by PMD
 
-## Introduction
+## Overview
+This project provides a **Docker-based program** that performs static analysis on each commit of a selected Java Git repository using [PMD](https://pmd.github.io/).  
+It is designed for **software repository mining** and generates detailed analysis results per commit, along with a final summary report.
 
-This's a program running on [Docker](https://www.docker.com/), which performs static analysis on each commit of a  selected Java Git repository using [PMD](https://pmd.github.io/) , and generates per-commit JSON reports along with a final summary report for software repository mining purposes.
+## Core Functionalities
+- Support for local and remote Git repositories
+- Dockerized execution
+- Commit-by-commit traversal of the full Git history
+- PMD static analysis performed on each revision
+- Per-commit JSON reports with detailed findings
+- Summary report generation including commit count, average number of Java files, average warnings, and types of warnings
+- Configurable input/output paths and rulesets for flexible setup
 
-## Core functionalities
+## Update
+- Remove unnecessary/redundant files
+```
+example-ruleset.xml
+minimal-ruleset.xml
+simple-ruleset.xml
+ultra-minimal-ruleset.xml
 
-- Support local and remote Git repositories 
+DOCKER_USAGE.md
+LOCAL_USAGE.md
+PMD_PATH_CONFIG.md
+PERFORMANCE_OPTIMIZATION.md
 
-- Docker containerization support
+docker-compose.yml
 
-- Traverse Git history commit-by-commit
-    
-- Run PMD static analysis on each revision
-    
-- Output per-commit results as JSON files
-    
-- Generate a summary report showing commit count, average number of Java files, average warnings, and warning types
- 
-- Configurable input/output paths and ruleset
+requirements.txt
 
+./output
+./pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0
+```
+- Update the details of dockerfile
 
+- Modify the generate_summary function in the summary_generator.py file to fix the bug where the output summary format was incorrect.
+
+- Update the details of README.md to provide a clear version
 
 ## Project Structure
- (project-root)**pmd_miner**/    
-├──output    
-│     ├──commits #Detailed json file    
-│     ├──logs    
-│     └──summary.json #summary file    
-├──pmd    
-│     └──pmd-dist-7.15.0-bin#local pmd installatin    
-├──local-repo #local test git repository    
-├── main.py # Main program entry    
-├── git_analyzer.py # Git repository analysis module    
-├── pmd_runner.py # PMD execution module    
-├── result_processor.py # Result processing module    
-├── summary_generator.py # Summary generation module    
-├── requirements.txt # Python dependencies    
-├── *.xml # PMD rule set file    
-├── Dockerfile # Docker image definition    
-├── docker-compose.yml # Remote repository analysis configuration    
-├── LOCAL_USAGE.md # Local operation guide    
-├── README.md         # This file    
-└── DOCKER_USAGE.md # Docker operation guide    
- 
-## Usage Instructions or Examples
-
-Will be detailed in the section below.
-
+(project-root) **pmd_miner**/  
+├── output                         
+│   ├── commits                   # Detailed analysis results per commit (JSON files)  
+│   ├── logs                      # Log files  
+│   └── summary.json              # Aggregated summary report  
+│
+├── main.py                       # Main program entry point  
+├── git_analyzer.py               # Module for analyzing Git repository history  
+├── pmd_runner.py                 # Module for running PMD static analysis  
+├── result_processor.py           # Module for processing raw PMD results  
+├── summary_generator.py          # Module for generating final summary reports  
+├── requirements.txt              # Python dependencies  
+├── Dockerfile                    # Docker image definition  
+├── test_performance_display.py   # Test script for visualizing performance across commits  
+└── README.md                     # Project documentation  
 
 ##  Installation & Execution
-
 ### Prerequisites
-
- - **Docker** installed and configured(https://www.docker.com/)
- - **PMD** installed and configured: [https://pmd.github.io/](https://pmd.github.io/)
- - **Python 3.7+** installed
- - **Git** installed
- - **java 11+** installed
+ - **Docker** — Installed and configured (https://www.docker.com/)
+ - **PMD** — Installed and configured (https://pmd.github.io/)
+ - **Python 3.7+** — Installed
+ - **Git** — Installed
+ - **Java 11+** — Installed
 
 ###  Installation Steps 
+ **Step 1: To install Docker, please refer to the official Docker documentation**  
+```
+### Add Docker's official GPG key ###
 
- **1. **To install Docker, follow the official documentation:**
- (**Add Docker's official GPG key**:)**
-```bash
-        sudo apt-get update
-        sudo apt-get install ca-certificates curl
-        sudo install -m 0755 -d /etc/apt/keyrings
-        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-        sudo chmod a+r /etc/apt/keyrings/docker.asc
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 ```
-( **Add the repository to Apt sources**:)
 ```
-    echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-    $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    sudo apt-get update
-```
-(**To install the latest version, run**:)
-``` bash
-     sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
-(**Check docker installation**)
-``` bash
-    sudo docker version
-    sudo docker run hello-world
-    sudo docker images
-    sudo docker ps -a
-    sudo usermod -aG docker ${USER}
-    docker run  --rm -d -p 8080:80 --name my-nginx nginx
-```
-**2. Install dependencies including git, java, python**
+### Add the repository to Apt sources ###
 
-``` bash 
-    sudo apt-get install git
-    sudo apt install -y openjdk-11-jdk
-    sudo apt install -y python3 python3-pip
-    pip install gitpython
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+$(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
 ```
+```
+### Install the latest version ###
 
- **3. Environment Preparation and Check**
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+```
+### Check docker installation ###
 
-``` bash 
-    sudo mkdir -p /home/user/pmd_miner 
-    cd /home/user/pmd_miner 
-    ls -ld /home/user/pmd_miner 
-    echo $USER
-    sudo chown -R $USER:$USER
+sudo docker version
+sudo docker run hello-world
+sudo docker images
+sudo docker ps -a
+sudo usermod -aG docker ${USER}
+docker run  --rm -d -p 8080:80 --name my-nginx nginx
+```
+**Step 2: Install dependencies including git, java, python**
+```
+sudo apt-get install git
+sudo apt install -y openjdk-11-jdk
+sudo apt install -y python3 python3-pip
+pip install gitpython
 ```
 
-**4. Modify *Dockerfile* (including PMD installatin inside)**
-
-```bash 
-    cd /home/user/pmd_miner 
-    nano Dockerfile
-```
-
-The *Dockerfile* :
+ **Step 3: Environment Preparation and Check**
 ``` 
-    # Use Python 3.9 slim image as base  
-    FROM python:3.9-slim  
-      
-    # Set working directory  
-    WORKDIR /app  
-      
-    # Install system dependencies  
-    RUN apt-get update &amp;&amp; apt-get install -y \  
-    git \  
-    wget \  
-    unzip \  
-    default-jdk \  
-    curl \  
-    &amp;&amp; rm -rf /var/lib/apt/lists/*  
-      
-    # Set JAVA_HOME environment variable  
-    ENV JAVA_HOME=/usr/lib/jvm/default-java  
-    ENV PATH=$PATH:$JAVA_HOME/bin  
-      
-    # Copy local PMD installation  
-    COPY pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0 /app/pmd/pmd-bin-7.15.0  
-      
-    # Set PMD permissions and path  
-    RUN chmod +x /app/pmd/pmd-bin-7.15.0/bin/pmd &amp;&amp; \  
-    chmod +x /app/pmd/pmd-bin-7.15.0/bin/pmd.bat  
-      
-    # Set PMD path  
-    ENV PMD_HOME=/app/pmd/pmd-bin-7.15.0  
-    ENV PATH=$PATH:$PMD_HOME/bin  
-      
-    # Copy requirements file  
-    COPY requirements.txt .  
-      
-    # Install Python dependencies  
-    RUN pip install --no-cache-dir -r requirements.txt  
-      
-    # Copy application code  
-    COPY *.py ./  
-    COPY *.xml ./  
-      
-    # Create output directory  
-    RUN mkdir -p /app/output  
-      
-    # Set default command with PMD path  
-    ENTRYPOINT ["python", "main.py"]  
-    CMD ["--help"]
-    
+sudo mkdir -p /home/user/pmd_miner 
+cd /home/user/pmd_miner 
+ls -ld /home/user/pmd_miner 
+echo $USER
+sudo chown -R $USER:$USER
 ```
 
-**5. Build *requirements.txt*  in the same directory as Dockerfile**
-The *requirements.txt* :
-``` 
-    GitPython==3.1.40  
-    requests==2.31.0  
-    click==8.1.7  
-    tqdm==4.66.1  
+**Step 4: Update the Dockerfile to install PMD and clone the remote repository with the PMD analysis code**
+
+```
+cd /home/user/pmd_miner 
+nano Dockerfile
+```
+```
+##### Details of Dockerfile #####
+
+# Use Python 3.9 slim image as base
+FROM python:3.9-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    wget \
+    unzip \
+    default-jdk \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set JAVA_HOME environment variable
+ENV JAVA_HOME=/usr/lib/jvm/default-java
+ENV PATH=$PATH:$JAVA_HOME/bin
+
+# Download and install PMD including rulesets
+ENV PMD_VERSION=7.15.0
+RUN curl -L -o pmd.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-dist-${PMD_VERSION}-bin.zip \
+    && unzip pmd.zip -d /opt \
+    && rm pmd.zip
+
+# Set PMD path
+ENV PMD_HOME=/opt/pmd-bin-${PMD_VERSION}
+ENV PATH="$PMD_HOME/bin:$PATH"
+
+# Clone my github 
+RUN git clone https://github.com/Lbyrigitte/Repository-Mining-and-Analysis-by-PMD.git /app
+
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    GitPython==3.1.40 \
+    requests==2.31.0 \
+    click==8.1.7 \
+    tqdm==4.66.1 \
     python-dateutil==2.8.2
+
+# Create output directory
+RUN mkdir -p /app/output
+
+# Set default command with PMD path
+ENTRYPOINT ["python", "main.py"]
+CMD ["--help"]
 ```
 
- **6. Build the docker image**
+**Step 5: Build the docker image**
+```
+docker build --progress=plain -t pmd-analyzer
 
-   `docker build --progress=plain -t static-analyzer .`
-**7. Test docker container**
+### If you see a warning such as ###
+[current commit information was not captured by the build: failed to read current commit information with git rev-parse --is-inside-work-tree]
+### It means that the current directory is not a Git repository. This does not affect the execution of the program. ###
 
-``` bash 
-    docker run -it pmd_miner /bin/bash 
-    java -version
-    python3 --version
-    pmd -version
+### To avoid it, please run ###
+DOCKER_BUILDKIT=0 docker build --progress=plain -t pmd-analyzer
 ```
 
-### Execution
+**Step 6: Test docker container**
+```
+docker run -it --rm --entrypoint /bin/bash pmd-analyzer
+java -version
+python3 --version
+pmd --version
+```
+**Step 7: Test the clone conditions of docker container**
+```
+docker run -it --rm --entrypoint /bin/bash pmd-analyzer
+ls /app
 
- **1.  Select the running mode**
-       
- - **Local running**: Run directly in the local environment → See [LOCAL_USAGE.md](LOCAL_USAGE.md)
- 
- - **Docker running**: Run using a Docker container→ See [DOCKER_USAGE.md](DOCKER_USAGE.md)
+### A successful clone can be confirmed if the local repository contains the same content as the remote repository. ###
+```
 
- 
-**2. Run locally (fast, but supposed to follow [DOCKER_USAGE.md](DOCKER_USAGE.md))**
+### Execution Steps
+**Step 1: Run analysis on a remote repository (Linux path example)**
+```
+### Outside the container ###
+
+docker run --rm \
+-v $(pwd)/output:/app/output \
+pmd-analyzer \
+https://github.com/apache/commons-lang.git \
+--ruleset rulesets/java/quickstart.xml \
+--output-dir /app/output \
+--pmd-path /opt/pmd-bin-7.15.0 \
+--skip-download \
+--max-commits 10 \
+--verbose
+
+### If run for a long time ###
+### Delete `--rm` and add `-d` to avoid task interruptions caused by screen lock/disconnection/screen crash. ###
+
+docker run -d \
+-v $(pwd)/output:/app/output \
+pmd-analyzer \
+https://github.com/apache/commons-lang.git \
+--ruleset rulesets/java/quickstart.xml \
+--output-dir /app/output \
+--pmd-path /opt/pmd-bin-7.15.0 \
+--skip-download \
+--verbose
 ``` 
-    # 1. Install dependencies
-    pip install -r requirements.txt
-    
-    # 2. Run analysis
-    python main.py https://github.com/apache/commons-lang.git \
-    --ruleset minimal-ruleset.xml \
-    --max-commits 10 \
-    --verbose
+```
+### Inside the container ###
+
+python /app/main.py https://github.com/apache/commons-lang.git \
+--ruleset /opt/pmd-bin-7.15.0/rulesets/java/quickstart.xml \
+--output-dir /app/output \
+--pmd-path /opt/pmd-bin-7.15.0 \
+--skip-download \
+--max-commits 10
+```
+**Step 2: Change parameters**
+```
+--max-commits # Set maximum commits
+--ruleset # Select the official rulesets (such as quickstart.xml, bestpractices.xml, codestyle.xml, etc.)
 ```
 
- **3. Docker run (recommended, supposed to follow [DOCKER_USAGE.md](DOCKER_USAGE.md))**
-``` 
-    # 1. Build image
-    docker build –progress=plain -t static-analyzer .
-    
-    # 2. Run analysis (Linux path example)
-    
-    docker run --rm -v "$(pwd)/output:/app/output" static-analyzer \  
-    https://github.com/apache/commons-lang.git \  
-    --ruleset minimal-ruleset.xml \  
-    --pmd-path /app/pmd/pmd-bin-7.15.0 \  
-    --max-commits 10 \  
-    --verbose
+**Step 3: Check the log midway**
+```
+docker rm my-analyze
 ```
 
-## Output
+## Output Description
+**Part 1: Structure**   
 
- **1. Output Format**
+├── commits/                # Detailed analysis of each commit    
+│         ├── abc123.json   # Commit hash.json    
+│         └── def456.json    
+├── summary.json            # Summary statistics    
+└── logs/                   # Log files    
 
- Commit level data (`output/commits/*.json`)
+ **Part 2: Commit level data (`output/commits/*.json`)**  
+
 - Commit information (hash, author, date, message)
 - Java file statistics (number, number of lines, file list)
 - PMD analysis results (number of violations, detailed violation information)
 - Calculation statistics (violation density, quality ratio, etc.)
 
- ****2. Summary data (`output/summary.json`)**
+ **Part 3: Summary data (`output/summary.json`)**
 - Basic information of the warehouse
 - Number and average statistics of Java files
 - Average statistics of warnings
 - Rules violation statistics
 - Time trend analysis
+
+ **View summary results**
+
+ ` cat output/summary.json` 
+
+**View commit details**
+
+` ls output/commits/`  
+` cat output/commits/6627f7ad.json`
+
+ **View logs**  
+` cat output/logs/*.log`
  
- **3. Ruleset selection**
+#### Top-level fields
+- **`location`**: The repository path or URL to analyze
+- **`stat_of_repository`**: Repository statistics
+- **`stat_of_warnings`**: Warning statistics
 
-| Rule set | Number of rules | Analysis speed | Applicable scenarios |
-|--------|----------|----------|----------|
-|`ultra-minimal-ruleset.xml`|5|Fastest|Complex item,Analyze the problem,Performance optimization|
-| `minimal-ruleset.xml` | 8 | Fastest | Quick test |
-| `simple-ruleset.xml` | ~100 | Medium | Daily analysis |
-| `example-ruleset.xml` | ~200 | Slow | Detailed analysis
+#### Repository Statistics (`stat_of_repository`)
 
- **4. Detailed documentation**
+- **`number_of_commits`**: Total number of commits analyzed
+- **`avg_of_num_java_files`**: Average number of Java files
+- **`avg_of_num_warnings`**: Average number of warnings
 
-- **[LOCAL_USAGE.md](LOCAL_USAGE.md)** - Complete guide for running locally
-- **[DOCKER_USAGE.md](DOCKER_USAGE.md)** - Complete guide for running Docker
-- **[PMD_PATH_CONFIG.md](PMD_PATH_CONFIG.md)** - PMD path configuration instructions
+#### Warning Statistics (`stat_of_warnings`): Lists total violations by rule name
+- **`EmptyCatchBlock`**: Number of empty catch block violations
+- **`SimplifyBooleanReturns`**: Number of Boolean return simplification violations
+- **`UnusedLocalVariable`**: Number of unused local variable violations
+- **`SystemPrintln`**: Number of System.out.println violations
+- **`UnnecessaryReturn`**: Number of unnecessary return violations
 
+#### Summary.json file in flat format:
+```json
+{
+  "location": "https://github.com/apache/commons-lang.git",
+  "stat_of_repository": {
+    "number_of_commits": 10,
+    "avg_of_num_java_files": 27.0,
+    "avg_of_num_warnings": 18.7
+  },
+  "stat_of_warnings": {
+    "EmptyCatchBlock": 99,
+    "SimplifyBooleanReturns": 18,
+    "UnusedLocalVariable": 70
+  }
+}
+```
 
 ## Performance
-**1.Target Performance**: ≤1 second/commit
-**2.Local run**: about 10-15 seconds/commit
-**3.Docker run**: about 3-6 seconds/commit
-**4.After optimization**: ≤1 second/commit (using existing PMD + simplified ruleset)
-- **Ultra-Simplified Ruleset**: **< 1 sec/submit**  (ultra-minimal-ruleset.xml)
-- **Minimal Ruleset**: ~2-5 sec/submit (minimal-ruleset.xml)
-- **Standard Ruleset**: ~5-15 sec/submit (simple-ruleset.xml)
-- **Full Ruleset**: ~10-30 sec/submit (example-ruleset.xml)
+**Target Performance**: ≤ 1 second/commit  
+**Docker run**: ≤ 1 second/commit (0.6 second with quickstart.xml)
 
+## Image management
+ - View images
+
+    `docker images static-analyzer ` 
+
+- Delete images
+
+    `docker rmi static-analyzer ` 
+
+
+- Clean up all unused resources
+
+    `docker system prune -a`
+  
+## Debug
+ - Enter container debugging
+
+`docker run -it --rm --entrypoint /bin/bash pmd-analyzer ` 
+
+ - View files in container
+
+`docker run --rm --entrypoint pmd-analyzer ls -la /app/  `
+
+ - Check PMD installation
+
+`docker run --rm --entrypoint pmd-analyzer /app/pmd/pmd-bin-7.15.0/bin/pmd --version  `
 
 ## Contributions
-
 Welcome to submit issues and pull requests to improve this project.
 
-
-
 ## License
-
 This project uses the MIT license.
-
-
-
-
