@@ -215,10 +215,10 @@ https://github.com/apache/commons-lang.git \
 --skip-download \
 --max-commits 10 \
 --verbose
-```
+
 ### If run for a long time ###
 ### Delete `--rm` and add `-d` to avoid task interruptions caused by screen lock/disconnection/screen crash. ###
-```
+
 docker run -d \
 --name pmd_ana \
 -v $(pwd)/output:/app/output \
