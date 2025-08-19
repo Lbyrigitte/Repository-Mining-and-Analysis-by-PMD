@@ -220,6 +220,7 @@ https://github.com/apache/commons-lang.git \
 ### Delete `--rm` and add `-d` to avoid task interruptions caused by screen lock/disconnection/screen crash. ###
 
 docker run -d \
+--name pmd_ana \
 -v $(pwd)/output:/app/output \
 pmd-analyzer \
 https://github.com/apache/commons-lang.git \
@@ -247,9 +248,11 @@ python /app/main.py https://github.com/apache/commons-lang.git \
 
 **Step 3: Check the log midway**
 ```
-docker rm my-analyze
+docker logs -f pmd_ana
 ```
-
+```
+docker rm pmd_ana
+```
 ## Output Description
 **Part 1: Structure**   
 
