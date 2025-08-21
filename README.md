@@ -175,14 +175,14 @@ CMD ["--help"]
 
 **Step 5: Build the docker image**
 ```
-docker build --progress=plain -t pmd-analyzer
+docker build --progress=plain -t pmd-analyzer .
 
 ### If you see a warning such as ###
 [current commit information was not captured by the build: failed to read current commit information with git rev-parse --is-inside-work-tree]
 ### It means that the current directory is not a Git repository. This does not affect the execution of the program. ###
 
 ### To avoid it, please run ###
-DOCKER_BUILDKIT=0 docker build --progress=plain -t pmd-analyzer
+DOCKER_BUILDKIT=0 docker build --progress=plain -t pmd-analyzer .
 ```
 
 **Step 6: Test docker container**
