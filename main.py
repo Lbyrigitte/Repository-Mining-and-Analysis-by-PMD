@@ -70,6 +70,11 @@ def parse_arguments():
         help="Enable verbose output"
     )
     
+    parser.add_argument(
+    "--jvm-opts",
+    help="Extra JVM options for running PMD (e.g. '-Xmx8g')"
+)
+    
     return parser.parse_args()
 
 
