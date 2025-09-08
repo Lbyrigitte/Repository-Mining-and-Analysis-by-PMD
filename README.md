@@ -233,7 +233,7 @@ https://github.com/apache/commons-lang.git \
 --verbose
 
 ### To prevent the program from exceeding memory limits, use `--memory=20g` and `--jvm-opts="-Xmx15g"` to explicitly set the total memory and JVM heap memory.
-```
+
 docker run -d \
   --name pmd_ana \
   --cpus=12 \
