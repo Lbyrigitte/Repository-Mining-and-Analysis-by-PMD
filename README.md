@@ -37,6 +37,8 @@ requirements.txt
 
 - Modify the generate_summary function in the summary_generator.py file to fix the bug where the output summary format was incorrect.
 
+- Modify the parser.paese_args function and add the '--jvm-opts' parameter in the main.py file to explicitly allocate JVM heap memory.
+
 - Update the details of README.md to provide a clear version
 
 ## Project Structure
@@ -229,6 +231,22 @@ https://github.com/apache/commons-lang.git \
 --pmd-path /opt/pmd-bin-7.15.0 \
 --skip-download \
 --verbose
+
+### To prevent the program from exceeding memory limits, use `--memory=20g` and `--jvm-opts="-Xmx15g"` to explicitly set the total memory and JVM heap memory.
+```
+docker run -d \
+  --name pmd_ana \
+  --cpus=12 \
+  --memory=20g \
+  -v $(pwd)/output:/app/output \
+  pmd \
+  --jvm-opts="-Xmx15g" \
+  https://github.com/apache/commons-lang.git \
+  --ruleset rulesets/java/quickstart.xml \
+  --output-dir /app/output \
+  --pmd-path /opt/pmd-bin-7.15.0 \
+  --skip-download \
+  --verbose
 ``` 
 ```
 ### Inside the container ###
@@ -253,6 +271,22 @@ docker logs -f pmd_ana
 ```
 docker rm pmd_ana
 ```
+**Step 4: Monitor resource changes in running containers**
+```
+docker stats pmd_ana
+```
+```
+docker stats --no-stream pmd_ana
+```
+#### Docker stats numeric field
+`CPU %`: CPU percentage used (single core = 100%)  
+`MEM USAGE/LIMIT`: Container actual memory/maximum memory limit  
+`MEM %`: The percentage of memory occupied relative to the limit  
+`NET I/O`: Cumulative network input/output  
+`BLOCK I/O`: Cumulative disk reads and writes to the container  
+`PIDS`: Number of processes running in the container
+
+
 ## Output Description
 **Part 1: Structure**   
 
@@ -353,6 +387,14 @@ docker rm pmd_ana
  - Check PMD installation
 
 `docker run --rm --entrypoint pmd-analyzer /app/pmd/pmd-bin-7.15.0/bin/pmd --version  `
+
+- When the computation is too large, the memory requested by the process/container may exceed the available quota, or the system may have insufficient remaining memory. In such cases, the kernel OOM Killer may terminate the process, resulting in `docker ps -a` showing `Exited (137)`. To prevent this, it is necessary to set a reasonable upper memory limit for the container and leave sufficient margin for the JVM.
+
+- Use `--memory=20g` and `--jvm-opts="-Xmx15g"` to explicitly allocate container memory and JVM heap memory.
+
+- Monitor memory usage with `docker stats pmd_ana` to ensure it does not approach the upper limit.
+
+- Adjust host system configuration if necessary to provide adequate resources.
 
 ## Contributions
 Welcome to submit issues and pull requests to improve this project.
