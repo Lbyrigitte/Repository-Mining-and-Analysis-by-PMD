@@ -278,14 +278,15 @@ docker stats pmd_ana
 ```
 docker stats --no-stream pmd_ana
 ```
-** Docker stats numeric field **
+```
+ Docker stats numeric field 
 `CPU %`: CPU percentage used (single core = 100%)  
 `MEM USAGE/LIMIT`: Container actual memory/maximum memory limit  
 `MEM %`: The percentage of memory occupied relative to the limit  
 `NET I/O`: Cumulative network input/output  
 `BLOCK I/O`: Cumulative disk reads and writes to the container  
 `PIDS`: Number of processes running in the container
-
+```
 
 ## Output Description
 **Part 1: Structure**   
