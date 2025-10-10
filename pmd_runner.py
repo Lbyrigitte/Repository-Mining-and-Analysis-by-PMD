@@ -17,7 +17,7 @@ from tqdm import tqdm
 class PMDRunner:
     """Manages PMD static analysis tool execution."""
     
-    def __init__(self, version: str = "7.15.0", skip_download: bool = False, verbose: bool = False, pmd_path: str = None):
+    def __init__(self, version: str = "6.55.0", skip_download: bool = False, verbose: bool = False, pmd_path: str = None):
         """
         Initialize PMDRunner.
 
