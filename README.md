@@ -14,7 +14,87 @@ It is designed for **software repository mining** and generates detailed analysi
 - Configurable input/output paths and rulesets for flexible setup
 
 ## Update
-- Remove unnecessary/redundant files
+### Resolve runtime errors(2025-10-9)
+1. Add the ruleset **errorprone-full.xml** ruleset to ensure zero runtime errors when analyzing large Java projects such as Google Guava.
+ - Excluded problematic directories and files
+ - Excluded GWT-related directories (`gwt-src`, `gwt-super`, `guava-gwt`)  
+ - Excluded test code directories (`guava-tests`)
+ - Excluded all core classes that trigger generic type inference errors
+ - Added exclusion for `AbstractMapBasedMultimap.java` (IndexOutOfBoundsException issue not yet fixed in PMD 7.15.0). More details about this part can be found :[PMD Issue #5041: “Parsing failed in ParseLock#doParse(): IndexOutOfBoundsException”](https://github.com/pmd/pmd/issues/5041) and [PMD Release Notes — #4405 “Processing error with ArrayIndexOutOfBoundsException”](https://pmd.github.io/pmd/pmd_release_notes_pmd7.html)
+- Disabled unstable rule `DoNotHardCodeSDCard` (still triggers internal ArrayIndexOutOfBoundsException in PMD 7.15.0 and PMD 7.17.0). More disgussion about this part can be found at [[java] Update rule DoNotHardCodeSDCard](https://github.com/pmd/pmd/issues?q=DoNotHardCodeSDCard)
+
+Configuration file **errorprone-full.xml**
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="ErrorProne Custom Full - Zero Error Enhanced"
+         xmlns="http://pmd.github.io/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.github.io/ruleset/2.0.0
+                             https://pmd.github.io/ruleset_2_0_0.xsd">
+
+    <description>
+       Updated the errorprone ruleset.
+　　　　Changes:
+　　　　1. Excluded the GWT directories (gwt-src, gwt-super) to prevent generic parsing errors.
+　　　　2. All test code directories;
+　　　　3. All core classes that trigger generic parsing errors;
+　　　　4. Disabled the DoNotHardCodeSDCard rule, which has a known bug, to prevent array out-of-bounds exceptions in PMD.
+    </description>
+
+    <!-- Global Exclude Directories -->
+    <exclude-pattern>.*/gwt-src/.*</exclude-pattern>
+    <exclude-pattern>.*/gwt-super/.*</exclude-pattern>
+    <exclude-pattern>.*/guava-gwt/.*</exclude-pattern>
+    <exclude-pattern>.*/guava-tests/.*</exclude-pattern>
+
+    <!-- Exclude all core classes known to trigger generic parsing errors -->
+    <exclude-pattern>.*/src/com/google/common/base/Equivalences.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/base/Equivalence.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/base/PairwiseEquivalence.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/base/PairwiseEquivalence_CustomFieldSerializer.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/ForwardingImmutableCollection.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/ImmutableCollection.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/ImmutableList.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/ImmutableSet.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/Interners.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/MapMakerInternalMap.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/MapMaker.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/ComputingConcurrentHashMap.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/collect/GenericMapMaker.java</exclude-pattern>
+    <exclude-pattern>.*/src/com/google/common/util/concurrent/Interners.java</exclude-pattern>
+    <exclude-pattern>.*/com/google/common/collect/AbstractMapBasedMultimap.java</exclude-pattern>
+    
+    <!-- Disabled the DoNotHardCodeSDCard rule -->
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="DoNotHardCodeSDCard"/>
+    </rule>
+
+</ruleset>
+```
+Example command
+```
+docker run -d \
+  --name test \
+  --memory="20g" \
+  -v $(pwd)/output:/app/output \
+  -v $(pwd)/errorprone-full.xml:/app/errorprone-full.xml \
+  pmdtest \
+  --jvm-opts="-Xmx15g" \
+  https://github.com/google/guava.git \
+  ruleset /app/errorprone-full.xml --output-dir /app/outputut \
+  --output-dir /app/output \
+  --pmd-path /opt/pmd-bin-7.15.0 \
+  --skip-download \
+  --verbose
+```
+2. Confirmed against PMD 7.15.0 and 7.17.0
+ - Verified that all generic-related parsing errors persist in 7.15.0 and 7.17.0
+ - The new configuration completely eliminates these errors
+ 
+3. Update the details of README.md to provide a clear version
+
+### Remove non-core functions and resolve runtime bugs（2025-9-9）
+1. Remove unnecessary/redundant files
 ```
 example-ruleset.xml
 minimal-ruleset.xml
@@ -33,14 +113,13 @@ requirements.txt
 ./output
 ./pmd/pmd-dist-7.15.0-bin/pmd-bin-7.15.0
 ```
-- Update the details of dockerfile
+2. Update the details of dockerfile
 
-- Modify the generate_summary function in the summary_generator.py file to fix the bug where the output summary format was incorrect.
+3. Modify the generate_summary function in the summary_generator.py file to fix the bug where the output summary format was incorrect.
 
-- Modify the parser.paese_args function and add the '--jvm-opts' parameter in the main.py file to explicitly allocate JVM heap memory.
+4. Modify the parser.paese_args function and add the '--jvm-opts' parameter in the main.py file to explicitly allocate JVM heap memory.
 
-- Update the details of README.md to provide a clear version
-
+5. Update the details of README.md to provide a clear version
 ## Project Structure
 (project-root) **pmd_miner**/  
 ├── output                         
