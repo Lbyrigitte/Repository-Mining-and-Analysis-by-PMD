@@ -20,8 +20,8 @@ It is designed for **software repository mining** and generates detailed analysi
  - Excluded GWT-related directories (`gwt-src`, `gwt-super`, `guava-gwt`)  
  - Excluded test code directories (`guava-tests`)
  - Excluded all core classes that trigger generic type inference errors
- - Added exclusion for `AbstractMapBasedMultimap.java` (IndexOutOfBoundsException issue not yet fixed in PMD 7.15.0). More details about this part can be found :[PMD Issue #5041: “Parsing failed in ParseLock#doParse(): IndexOutOfBoundsException”](https://github.com/pmd/pmd/issues/5041) and [PMD Release Notes — #4405 “Processing error with ArrayIndexOutOfBoundsException”](https://pmd.github.io/pmd/pmd_release_notes_pmd7.html)
-- Disabled unstable rule `DoNotHardCodeSDCard` (still triggers internal ArrayIndexOutOfBoundsException in PMD 7.15.0 and PMD 7.17.0). More disgussion about this part can be found at [[java] Update rule DoNotHardCodeSDCard](https://github.com/pmd/pmd/issues?q=DoNotHardCodeSDCard)
+ - Added exclusion for `AbstractMapBasedMultimap.java` (IndexOutOfBoundsException issue not yet fixed in PMD 7.15.0). More details about this part can be found at [PMD Issue #5041: “Parsing failed in ParseLock#doParse(): IndexOutOfBoundsException”](https://github.com/pmd/pmd/issues/5041) and [PMD Release Notes — #4405 “Processing error with ArrayIndexOutOfBoundsException”](https://pmd.github.io/pmd/pmd_release_notes_pmd7.html)
+- Disabled unstable rule `DoNotHardCodeSDCard` (still triggers internal ArrayIndexOutOfBoundsException in PMD 7.15.0 and PMD 7.17.0). More discussion about this part can be found at [[java] Update rule DoNotHardCodeSDCard](https://github.com/pmd/pmd/issues?q=DoNotHardCodeSDCard)
 
 Configuration file **errorprone-full.xml**
 ```
